@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serie A – Risultati e Classifica Live</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --sa-blue: #4c6ef5;
+      --sa-violet: #9b5cf6;
+      --sa-live: #f85149;
+      --sa-green: #3fb950;
+      --sa-bg: #0d1117;
+      --sa-card: #161b22;
+      --sa-border: rgba(255,255,255,0.08);
+      --sa-text: #e6edf3;
+      --sa-muted: #8b949e;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'IBM Plex Sans', sans-serif; background-color: var(--sa-bg); color: var(--sa-text); line-height: 1.6; }
+
+    header {
+      position: relative; overflow: hidden;
+      background-image: url('https://d2xsxph8kpxj0f.cloudfront.net/310519663388006108/Awqj4g6tg8JH2xTgKvNZbo/stadium-bg-PZ87qy9bznZRLNkQKxEADv.webp');
+      background-size: cover; background-position: center 40%; padding: 60px 24px 50px;
+    }
+    header::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(13,17,23,0.75) 0%, rgba(13,17,23,0.88) 100%); z-index: 1; }
+    .header-content { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+
+    .live-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(248, 81, 73, 0.15); border: 1px solid rgba(248, 81, 73, 0.4); color: var(--sa-live); font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; padding: 3px 10px; border-radius: 4px; }
+    .live-dot { width: 7px; height: 7px; background: var(--sa-live); border-radius: 50%; animation: livePulse 1.5s infinite; }
+    @keyframes livePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 3rem; text-transform: uppercase; color: #fff; }
+
+    nav { position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); background-color: rgba(13,17,23,0.85); border-bottom: 1px solid var(--sa-border); padding: 10px 24px; display: flex; justify-content: center; gap: 8px; }
+    .nav-link { color: var(--sa-muted); text-decoration: none; padding: 6px 14px; border-radius: 6px; font-size: 0.9rem; }
+    .nav-link.active { color: var(--sa-blue); background: rgba(76, 110, 245, 0.1); }
+
+    main { max-width: 1200px; margin: 0 auto; padding: 32px 20px; }
+    section { background: var(--sa-card); border: 1px solid var(--sa-border); border-radius: 10px; margin-bottom: 28px; padding: 24px; }
+    .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; border-bottom: 1px solid var(--sa-border); padding-bottom: 10px; }
+    .section-icon { width: 4px; height: 25px; background: var(--sa-blue); border-radius: 2px; }
+
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; }
+    .team-card { background: rgba(255,255,255,0.02); border: 1px solid var(--sa-border); border-radius: 10px; padding: 15px; text-align: center; text-decoration: none; color: inherit; transition: 0.2s; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .team-card:hover { transform: translateY(-3px); border-color: var(--sa-blue); background: rgba(76, 110, 245, 0.05); }
+    .team-card img { width: 60px; height: 60px; object-fit: contain; }
+    .team-name { font-size: 0.85rem; font-weight: 500; color: var(--sa-text); }
+
+    footer { padding: 40px; text-align: center; color: var(--sa-muted); font-size: 0.8rem; border-top: 1px solid var(--sa-border); }
+    footer a { color: var(--sa-blue); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-content">
+      <div class="live-badge"><span class="live-dot"></span> LIVE 2025/26</div>
+      <h1>Serie A</h1>
+      <p style="color:rgba(255,255,255,0.6)">Classifica e Club Ufficiali</p>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#classifica" class="nav-link active">Classifica</a>
+    <a href="#squadre" class="nav-link">Squadre</a>
+  </nav>
+
+  <main>
+    <section id="classifica">
+      <div class="section-header">
+        <div class="section-icon"></div>
+        <h2 style="font-family:'Barlow Condensed'">CLASSIFICA LIVE</h2>
+      </div>
+      <div id="widget-w6h1mohbpzhg" class="scoreaxis-widget" style="width: auto;height: auto;background-color: #1c1e23;border-radius: 8px;overflow: hidden;">
+        <script src="https://widgets.scoreaxis.com/api/football/league-table/62322b827aee66235a2be718?widgetId=w6h1mohbpzhg&lang=it&teamLogo=1&tableLines=0&homeAway=1&header=1&position=1&goals=1&gamesCount=1&diff=1&winCount=1&drawCount=1&loseCount=1&lastGames=1&points=1&teamsLimit=all&links=1&font=heebo&fontSize=14&rowDensity=100&widgetWidth=auto&widgetHeight=auto&bodyColor=%231c1e23&textColor=%23ffffff&linkColor=%23ffffff&borderColor=%23365b72&tabColor=%2368b4ac" async></script>
+      </div>
+    </section>
+
+    <section id="squadre">
+      <div class="section-header">
+        <div class="section-icon" style="background:var(--sa-green)"></div>
+        <h2 style="font-family:'Barlow Condensed'">SQUADRE SERIE A</h2>
+      </div>
+      <div class="team-grid">
+        <a href="#" class="team-card"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/200px-FC_Internazionale_Milano_2021.svg.png" alt="Inter"><span class="team-name">Inter</span></a>
+        <a href="#" class="team-card"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" alt="Juventus"><span class="team-name">Juventus</span></a>
+        <a href="#" class="team-card"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/200px-Logo_of_AC_Milan.svg.png" alt="Milan"><span class="team-name">Milan</span></a>
+        <a href="#" class="team-card"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/SSC_Napoli_2024_%28deep_blue_navy%29.svg/200px-SSC_Napoli_2024_%28deep_blue_navy%29.svg.png" alt="Napoli"><span class="team-name">Napoli</span></a>
+        <a href="#" class="team-card"><img src="https://upload.wikimedia.org/wikipedia/it/thumb/8/81/Logo_Atalanta_Bergamo.svg/960px-Logo_Atalanta_Bergamo.svg.png" alt="Atalanta"><span class="team-name">Atalanta</span></a>
+        <a href="#" class="team-card"><img src="https://upload.wikimedia.org/wikipedia/it/0/0e/AS_Roma_Logo_2017.svg" alt="Roma"><span class="team-name">Roma</span></a>
+        <a href="#" class="team-card"><img src="https://upload.wikimedia.org/wikipedia/it/6/62/Stemma_della_Societ%C3%A0_Sportiva_Lazio.svg" alt="Lazio"><span class="team-name">Lazio</span></a>
+        <a href="#" class="team-card"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/ACF_Fiorentina_-_logo_%28Italy%2C_2022%29.svg/2560px-ACF_Fiorentina_-_logo_%28Italy%2C_2022%29.svg.png" alt="Fiorentina"><span class="team-name">Fiorentina</span></a>
+        <a href="#" class="team-card"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Bologna_F.C._1909_logo.svg/960px-Bologna_F.C._1909_logo.svg.png" alt="Bologna"><span class="team-name">Bologna</span></a>
+        <a href="#" class="team-card"><img src="https://upload.wikimedia.org/wikipedia/it/thumb/0/04/Torino_FC_logo.svg/1280px-Torino_FC_logo.svg.png" alt="Torino"><span class="team-name">Torino</span></a>
+        <a href="#" class="team-card"><img src="https://upload.wikimedia.org/wikipedia/it/thumb/a/a4/Ussassuolostemma.svg/1280px-Ussassuolostemma.svg.png" alt="Sassuolo"><span class="team-name">Sassuolo</span></a>
+        <a href="#" class="team-card"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Calcio_Como_-_logo_%28Italy%2C_2019-%29.svg/330px-Calcio_Como_-_logo_%28Italy%2C_2019-%29.svg.png" alt="Como"><span class="team-name">Como</span></a>
+        <a href="#" class="team-card"><img src="https://upload.wikimedia.org/wikipedia/it/thumb/d/d7/Logo_Pisa_SC_2017.svg/330px-Logo_Pisa_SC_2017.svg.png" alt="Pisa"><span class="team-name">Pisa</span></a>
+        <a href="#" class="team-card"><img src="https://upload.wikimedia.org/wikipedia/it/thumb/3/36/US_Lecce_Stemma.svg/330px-US_Lecce_Stemma.svg.png" alt="Lecce"><span class="team-name">Lecce</span></a>
+        <a href="#" class="team-card"><img src="https://upload.wikimedia.org/wikipedia/it/thumb/9/99/Genoa_Cricket_and_Football_Club_logo.svg/330px-Genoa_Cricket_and_Football_Club_logo.svg.png" alt="Genoa"><span class="team-name">Genoa</span></a>
+        <a href="#" class="team-card"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Logo_Parma_Calcio_1913_%28adozione_2016%29.svg/330px-Logo_Parma_Calcio_1913_%28adozione_2016%29.svg.png" alt="Parma"><span class="team-name">Parma</span></a>
+        <a href="#" class="team-card"><img src="https://upload.wikimedia.org/wikipedia/it/thumb/2/23/Unione_Sportiva_Cremonese_logo.svg/2560px-Unione_Sportiva_Cremonese_logo.svg.png" alt="Cremonese"><span class="team-name">Cremonese</span></a>
+        <a href="#" class="team-card"><img src="https://upload.wikimedia.org/wikipedia/it/thumb/9/92/Hellas_Verona_FC_logo_%282020%29.svg/330px-Hellas_Verona_FC_logo_%282020%29.svg.png" alt="Verona"><span class="team-name">Verona</span></a>
+        <a href="#" class="team-card"><img src="https://upload.wikimedia.org/wikipedia/it/thumb/8/88/Cagliari_calcio.svg/330px-Cagliari_calcio.svg.png" alt="Cagliari"><span class="team-name">Cagliari</span></a>
+        <a href="#" class="team-card"><img src="https://upload.wikimedia.org/wikipedia/it/thumb/a/ae/Logo_Udinese_Calcio_2010.svg/330px-Logo_Udinese_Calcio_2010.svg.png" alt="Udinese"><span class="team-name">Udinese</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Dati Classifica by <a href="https://www.scoreaxis.com/" target="_blank">Scoreaxis</a> | Stagione 2025/26</p>
+  </footer>
+
+  <script>
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section');
+    window.onscroll = () => {
+      sections.forEach(sec => {
+        let top = window.scrollY;
+        let offset = sec.offsetTop - 150;
+        let height = sec.offsetHeight;
+        let id = sec.getAttribute('id');
+        if(top >= offset && top < offset + height) {
+          navLinks.forEach(links => {
+            links.classList.remove('active');
+            document.querySelector('nav a[href*=' + id + ']').classList.add('active');
+          });
+        }
+      });
+    };
+  </script>
+
+</body>
+</html>
