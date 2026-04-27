@@ -3,33 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Serie A – Risultati e Classifica Live</title>
-  <meta name="description" content="Risultati live, classifica aggiornata e tutte le squadre della Serie A italiana.">
+  <title>Serie A – Risultati, Classifica Ufficiale e Albo d'Oro Storico</title>
+  <meta name="description" content="Tutti i risultati della Serie A italiana, la classifica aggiornata in tempo reale, il calendario delle partite e la storia completa di tutti i vincitori dello scudetto dal 1929 ad oggi.">
+  <meta name="keywords" content="Serie A, Calcio, Classifica Serie A, Risultati Live, Albo d'Oro Serie A, Milan, Inter, Juventus, Napoli">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --sa-blue: #4c6ef5;
+      --sa-blue-dark: #364fc7;
       --sa-violet: #9b5cf6;
+      --sa-violet-dark: #7950f2;
       --sa-live: #f85149;
       --sa-green: #3fb950;
       --sa-bg: #0d1117;
       --sa-card: #161b22;
+      --sa-card-hover: #1c2128;
       --sa-border: rgba(255,255,255,0.08);
       --sa-text: #e6edf3;
       --sa-muted: #8b949e;
+      --sa-gold: #ffd700;
+      --sa-gold-dark: #b8860b;
+      --transition-fast: 0.15s ease;
+      --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     html {
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
     body {
@@ -46,24 +57,18 @@
       background-image: url('https://d2xsxph8kpxj0f.cloudfront.net/310519663388006108/Awqj4g6tg8JH2xTgKvNZbo/stadium-bg-PZ87qy9bznZRLNkQKxEADv.webp');
       background-size: cover;
       background-position: center 40%;
-      padding: 60px 24px 50px;
+      padding: 80px 24px 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     header::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(13,17,23,0.75) 0%, rgba(13,17,23,0.88) 100%);
-      backdrop-filter: blur(1px);
-      z-index: 1;
-    }
-
-    header::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 20% 50%, rgba(76,110,245,0.18) 0%, transparent 60%), 
-                  radial-gradient(ellipse at 80% 50%, rgba(155,92,246,0.15) 0%, transparent 60%);
+      background: linear-gradient(180deg, rgba(13,17,23,0.7) 0%, rgba(13,17,23,0.9) 100%);
+      backdrop-filter: blur(2px);
       z-index: 1;
     }
 
@@ -71,94 +76,67 @@
       position: relative;
       z-index: 2;
       max-width: 1200px;
-      margin: 0 auto;
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
-    }
-
-    .live-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(248, 81, 73, 0.15);
-      border: 1px solid rgba(248, 81, 73, 0.4);
-      color: var(--sa-live);
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      padding: 3px 10px;
-      border-radius: 4px;
-    }
-
-    .live-dot {
-      display: inline-block;
-      width: 7px;
-      height: 7px;
-      background: var(--sa-live);
-      border-radius: 50%;
-      animation: livePulse 1.5s ease-in-out infinite;
-    }
-
-    @keyframes livePulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.7); }
+      gap: 16px;
     }
 
     h1 {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 800;
-      font-size: clamp(2.4rem, 6vw, 4rem);
-      letter-spacing: 0.06em;
+      font-size: clamp(2.8rem, 8vw, 4.5rem);
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #fff;
+      color: #ffffff;
       text-align: center;
-      text-shadow: 0 2px 20px rgba(76,110,245,0.5);
+      line-height: 0.9;
+      text-shadow: 0 4px 30px rgba(76,110,245,0.4);
     }
 
     .subtitle {
       font-family: 'IBM Plex Sans', sans-serif;
       font-weight: 300;
-      font-size: 1rem;
-      color: rgba(230,237,243,0.7);
-      letter-spacing: 0.15em;
+      font-size: 1.1rem;
+      color: rgba(230,237,243,0.8);
+      letter-spacing: 0.2em;
       text-transform: uppercase;
     }
 
     .decorative-line {
-      margin-top: 8px;
-      width: 60px;
-      height: 2px;
+      margin-top: 10px;
+      width: 80px;
+      height: 3px;
       background: linear-gradient(90deg, var(--sa-blue), var(--sa-violet));
-      border-radius: 2px;
+      border-radius: 4px;
     }
 
     nav {
       position: sticky;
       top: 0;
-      z-index: 100;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      z-index: 1000;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       background-color: rgba(13,17,23,0.85);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      padding: 10px 24px;
+      border-bottom: 1px solid var(--sa-border);
+      padding: 12px 24px;
       display: flex;
       justify-content: center;
-      gap: 8px;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     .nav-link {
       color: var(--sa-muted);
       text-decoration: none;
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-weight: 500;
-      font-size: 0.9rem;
-      padding: 6px 14px;
-      border-radius: 6px;
-      transition: all 0.15s ease;
-      letter-spacing: 0.02em;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 8px 18px;
+      border-radius: 8px;
+      transition: var(--transition-fast);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
     }
 
     .nav-link:hover {
@@ -167,340 +145,477 @@
     }
 
     .nav-link.active {
-      color: var(--sa-blue);
-      background: rgba(76, 110, 245, 0.1);
+      color: #ffffff;
+      background: var(--sa-blue);
+      box-shadow: 0 4px 12px rgba(76,110,245,0.3);
     }
 
     main {
-      max-width: 1200px;
+      max-width: 1240px;
       margin: 0 auto;
-      padding: 32px 20px 60px;
+      padding: 40px 20px 80px;
     }
 
     section {
       background: var(--sa-card);
       border: 1px solid var(--sa-border);
-      border-radius: 10px;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      margin-bottom: 28px;
-      padding: 24px 22px;
-    }
-
-    section:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      border-radius: 16px;
+      margin-bottom: 40px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     }
 
     .section-header {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-      padding-bottom: 14px;
+      gap: 16px;
+      margin-bottom: 25px;
+      padding-bottom: 18px;
       border-bottom: 1px solid var(--sa-border);
     }
 
     .section-icon {
-      width: 4px;
-      height: 28px;
-      border-radius: 2px;
+      width: 6px;
+      height: 32px;
+      border-radius: 3px;
       background: linear-gradient(180deg, var(--sa-blue), var(--sa-violet));
-      flex-shrink: 0;
-    }
-
-    .section-icon.violet {
-      background: linear-gradient(180deg, var(--sa-violet), #c084fc);
-    }
-
-    .section-icon.green {
-      background: linear-gradient(180deg, #3fb950, #2ea043);
     }
 
     .sa-section-title {
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 700;
-      font-size: 1.5rem;
-      letter-spacing: 0.04em;
+      font-size: 1.8rem;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       color: var(--sa-text);
     }
 
-    .section-badge {
-      margin-left: auto;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--sa-muted);
-      letter-spacing: 0.05em;
-    }
-
-    /* Oddspedia widget wrapper */
-    .oddspedia-wrapper {
-      width: 100%;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
     .team-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 16px;
     }
 
     .team-card {
       background: var(--sa-card);
       border: 1px solid var(--sa-border);
-      border-radius: 10px;
-      padding: 18px 12px;
+      border-radius: 12px;
+      padding: 24px 16px;
       text-align: center;
-      transition: all 0.2s ease;
-      cursor: pointer;
+      transition: var(--transition-normal);
       text-decoration: none;
       color: var(--sa-text);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .team-card:hover {
-      background: #1d2230;
-      border-color: rgba(76, 110, 245, 0.5);
-      box-shadow: 0 0 20px rgba(76, 110, 245, 0.2);
-      transform: translateY(-3px) scale(1.02);
+      background: var(--sa-card-hover);
+      border-color: var(--sa-blue);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.3);
     }
 
     .team-card img {
-      width: 72px;
-      height: 72px;
+      width: 80px;
+      height: 80px;
       object-fit: contain;
-      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
-      transition: filter 0.2s ease;
-    }
-
-    .team-card:hover img {
-      filter: drop-shadow(0 4px 12px rgba(76, 110, 245, 0.4));
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
     }
 
     .team-name {
       font-family: 'IBM Plex Sans', sans-serif;
-      font-weight: 500;
-      font-size: 0.82rem;
-      color: var(--sa-muted);
-      letter-spacing: 0.02em;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--sa-text);
+    }
+
+    .scroll-container {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      padding: 10px 5px 25px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--sa-blue) transparent;
+    }
+
+    .scroll-container::-webkit-scrollbar { height: 8px; }
+    .scroll-container::-webkit-scrollbar-thumb { background: var(--sa-blue); border-radius: 10px; }
+
+    .winner-item {
+      flex: 0 0 auto;
+      width: 120px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.02);
+      padding: 20px 10px;
+      border-radius: 14px;
+      border: 1px solid var(--sa-border);
+      transition: var(--transition-fast);
+    }
+
+    .winner-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--sa-gold);
+    }
+
+    .winner-year {
+      display: block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--sa-blue);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .winner-logo {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      margin-bottom: 12px;
+    }
+
+    .winner-name {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--sa-text);
     }
 
     footer {
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 20px 24px;
+      background: #090c10;
+      padding: 40px 24px;
       text-align: center;
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 0.78rem;
+      border-top: 1px solid var(--sa-border);
       color: var(--sa-muted);
-    }
-
-    footer a {
-      color: var(--sa-blue);
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: var(--sa-bg);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(255,255,255,0.12);
-      border-radius: 3px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: rgba(255,255,255,0.2);
+      font-size: 0.9rem;
     }
 
     @media (max-width: 768px) {
-      main {
-        padding: 20px 16px 40px;
-      }
-      section {
-        padding: 18px 16px;
-      }
-      .team-grid {
-        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-        gap: 12px;
-      }
+      main { padding: 20px 15px; }
+      h1 { font-size: 2.5rem; }
+      .team-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+      section { padding: 20px; }
     }
   </style>
 </head>
-
 <body>
 
-  <header>
-    <div class="header-content">
-      <div class="live-badge">
-        <span class="live-dot"></span>
-        LIVE
-      </div>
-      <h1>Serie A</h1>
-      <p class="subtitle">Risultati &amp; Classifica Live</p>
-      <div class="decorative-line"></div>
+<header>
+  <div class="header-content">
+    <h1>Serie A Enilive</h1>
+    <p class="subtitle">Classifica e Statistiche Storiche</p>
+    <div class="decorative-line"></div>
+  </div>
+</header>
+
+<nav id="main-nav">
+  <a href="#risultati" class="nav-link active">Classifica</a>
+  <a href="#partite" class="nav-link">Calendario</a>
+  <a href="#squadre" class="nav-link">Club</a>
+  <a href="#albo-doro" class="nav-link">Albo d'Oro</a>
+</nav>
+
+<main>
+  <section id="risultati">
+    <div class="section-header">
+      <div class="section-icon"></div>
+      <h2 class="sa-section-title">Classifica Stagione 2025/2026</h2>
     </div>
-  </header>
+    <div id="oddspedia-widget-competition-league-31">
+      <script>
+        window.oddspediaWidgetCompetitionLeague31 = {
+          api_token: "9fead6dddd7a8e8b986014ab761eaeb76923ed6c76a051e0f0d6b7f2a92b",
+          type: "competition",
+          domain: "hassanwaheb848-oss.github.io",
+          selector: "oddspedia-widget-competition-league-31",
+          width: "1024",
+          theme: "1",
+          odds_type: "1",
+          language: "it",
+          primary_color: "#4c6ef5",
+          accent_color: "#9b5cf6",
+          font: "IBM Plex Sans",
+          league_id: "31",
+          limit: "10",
+          show_odds: "true"
+        };
+      </script>
+      <script src="https://widgets.oddspedia.com/js/widget/init.js?widgetId=oddspediaWidgetCompetitionLeague31" async></script>
+    </div>
+  </section>
 
-  <nav>
-    <a href="#risultati" class="nav-link active">Risultati Live</a>
-    <a href="#squadre" class="nav-link">Squadre</a>
-  </nav>
+  <section id="partite">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--sa-violet)"></div>
+      <h2 class="sa-section-title">Prossime Partite e Risultati</h2>
+    </div>
+    <div id="oddspedia-widget-live-score-popular-false-sports-football-leagues-1-31">
+      <script>
+        window.oddspediaWidgetLiveScorePopularSportsfootballLeagues131 = {
+          api_token: "9fead6dddd7a8e8b986014ab761eaeb76923ed6c76a051e0f0d6b7f2a92b",
+          type: "live-score",
+          domain: "hassanwaheb848-oss.github.io",
+          selector: "oddspedia-widget-live-score-popular-false-sports-football-leagues-1-31",
+          width: "1024",
+          theme: "1",
+          odds_type: "1",
+          language: "it",
+          primary_color: "#161b22",
+          accent_color: "#4c6ef5",
+          font: "IBM Plex Sans",
+          logos: "true",
+          inplay_only: "false",
+          extended_match_info: "true",
+          live_stream: "true",
+          limit: "12",
+          popular: "false",
+          sports: "football",
+          leagues: "1:31"
+        };
+      </script>
+      <script src="https://widgets.oddspedia.com/js/widget/init.js?widgetId=oddspediaWidgetLiveScorePopularSportsfootballLeagues131" async></script>
+    </div>
+  </section>
 
-  <main>
+  <section id="squadre">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--sa-green)"></div>
+      <h2 class="sa-section-title">I Club della Serie A</h2>
+    </div>
+    <div class="team-grid">
+      <a href="https://www.inter.it" class="team-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/960px-FC_Internazionale_Milano_2021.svg.png" alt="Inter Logo">
+        <span class="team-name">Inter</span>
+      </a>
+      <a href="https://www.acmilan.com" class="team-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/960px-Logo_of_AC_Milan.svg.png" alt="Milan Logo">
+        <span class="team-name">Milan</span>
+      </a>
+      <a href="https://sscnapoli.it" class="team-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/SSC_Napoli_2025_%28white_and_azure%29.svg/960px-SSC_Napoli_2025_%28white_and_azure%29.svg.png" alt="Napoli Logo">
+        <span class="team-name">Napoli</span>
+      </a>
+      <a href="https://www.juventus.com" class="team-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" alt="Juventus Logo">
+        <span class="team-name">Juventus</span>
+      </a>
+      <a href="https://www.asroma.com" class="team-card">
+        <img src="https://upload.wikimedia.org/wikipedia/it/0/0e/AS_Roma_Logo_2017.svg" alt="Roma Logo">
+        <span class="team-name">Roma</span>
+      </a>
+      <a href="https://www.atalanta.it" class="team-card">
+        <img src="https://upload.wikimedia.org/wikipedia/it/thumb/8/81/Logo_Atalanta_Bergamo.svg/960px-Logo_Atalanta_Bergamo.svg.png" alt="Atalanta Logo">
+        <span class="team-name">Atalanta</span>
+      </a>
+      <a href="https://www.sslazio.it" class="team-card">
+        <img src="https://upload.wikimedia.org/wikipedia/it/6/62/Stemma_della_Societ%C3%A0_Sportiva_Lazio.svg" alt="Lazio Logo">
+        <span class="team-name">Lazio</span>
+      </a>
+      <a href="https://www.acffiorentina.com" class="team-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/ACF_Fiorentina_-_logo_%28Italy%2C_2022%29.svg/960px-ACF_Fiorentina_-_logo_%28Italy%2C_2022%29.svg.png" alt="Fiorentina Logo">
+        <span class="team-name">Fiorentina</span>
+      </a>
+      <a href="https://www.bolognafc.it" class="team-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Bologna_F.C._1909_logo.svg/960px-Bologna_F.C._1909_logo.svg.png" alt="Bologna Logo">
+        <span class="team-name">Bologna</span>
+      </a>
+      <a href="https://www.torinofc.it" class="team-card">
+        <img src="https://upload.wikimedia.org/wikipedia/it/thumb/0/04/Torino_FC_logo.svg/1280px-Torino_FC_logo.svg.png" alt="Torino Logo">
+        <span class="team-name">Torino</span>
+      </a>
+      <a href="https://genoacfc.it" class="team-card">
+        <img src="https://upload.wikimedia.org/wikipedia/it/thumb/9/99/Genoa_Cricket_and_Football_Club_logo.svg/330px-Genoa_Cricket_and_Football_Club_logo.svg.png" alt="Genoa Logo">
+        <span class="team-name">Genoa</span>
+      </a>
+      <a href="https://cagliaricalcio.com" class="team-card">
+        <img src="https://upload.wikimedia.org/wikipedia/it/thumb/8/88/Cagliari_calcio.svg/330px-Cagliari_calcio.svg.png" alt="Cagliari Logo">
+        <span class="team-name">Cagliari</span>
+      </a>
+      <a href="https://www.udinese.it" class="team-card">
+        <img src="https://upload.wikimedia.org/wikipedia/it/thumb/a/ae/Logo_Udinese_Calcio_2010.svg/330px-Logo_Udinese_Calcio_2010.svg.png" alt="Udinese Logo">
+        <span class="team-name">Udinese</span>
+      </a>
+      <a href="https://www.hellasverona.it" class="team-card">
+        <img src="https://upload.wikimedia.org/wikipedia/it/thumb/9/92/Hellas_Verona_FC_logo_%282020%29.svg/330px-Hellas_Verona_FC_logo_%282020%29.svg.png" alt="Verona Logo">
+        <span class="team-name">Verona</span>
+      </a>
+      <a href="https://www.uslecce.it" class="team-card">
+        <img src="https://upload.wikimedia.org/wikipedia/it/thumb/3/36/US_Lecce_Stemma.svg/330px-US_Lecce_Stemma.svg.png" alt="Lecce Logo">
+        <span class="team-name">Lecce</span>
+      </a>
+      <a href="https://parmacalcio1913.com" class="team-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Logo_Parma_Calcio_1913_%28adozione_2016%29.svg/330px-Logo_Parma_Calcio_1913_%28adozione_2016%29.svg.png" alt="Parma Logo">
+        <span class="team-name">Parma</span>
+      </a>
+      <a href="https://comofootball.com" class="team-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Calcio_Como_-_logo_%28Italy%2C_2019-%29.svg/330px-Calcio_Como_-_logo_%28Italy%2C_2019-%29.svg.png" alt="Como Logo">
+        <span class="team-name">Como</span>
+      </a>
+      <a href="https://www.sassuolocalcio.it" class="team-card">
+        <img src="https://upload.wikimedia.org/wikipedia/it/thumb/a/a4/Ussassuolostemma.svg/1280px-Ussassuolostemma.svg.png" alt="Sassuolo Logo">
+        <span class="team-name">Sassuolo</span>
+      </a>
+      <a href="https://pisasportingclub.com" class="team-card">
+        <img src="https://upload.wikimedia.org/wikipedia/it/thumb/d/d7/Logo_Pisa_SC_2017.svg/330px-Logo_Pisa_SC_2017.svg.png" alt="Pisa Logo">
+        <span class="team-name">Pisa</span>
+      </a>
+      <a href="https://uscremonese.it" class="team-card">
+        <img src="https://upload.wikimedia.org/wikipedia/it/thumb/2/23/Unione_Sportiva_Cremonese_logo.svg/960px-Unione_Sportiva_Cremonese_logo.svg.png" alt="Cremonese Logo">
+        <span class="team-name">Cremonese</span>
+      </a>
+    </div>
+  </section>
 
-    <section id="risultati">
-      <div class="section-header">
-        <div class="section-icon"></div>
-        <span class="sa-section-title">Risultati &amp; Classifica Live</span>
-        <div class="live-badge" style="margin-left: auto;">
-          <span class="live-dot"></span>
-          IN TEMPO REALE
-        </div>
-      </div>
-      <div class="oddspedia-wrapper">
-        <div id="oddspedia-widget-competition-league-31">
-          <script>window.oddspediaWidgetCompetitionLeague31 = { api_token: "9fead6dddd7a8e8b986014ab761eaeb76923ed6c76a051e0f0d6b7f2a92b", type: "competition", domain: "hassanwaheb848-oss.github.io", selector: "oddspedia-widget-competition-league-31", width: "1024", theme: "1", odds_type: "1", language: "it", primary_color: "#0F5D75", accent_color: "#1AB7AC", font: "Roboto", league_id: "31", limit: "8", show_odds: "true", };</script>
-          <script src="https://widgets.oddspedia.com/js/widget/init.js?widgetId=oddspediaWidgetCompetitionLeague31" async></script>
-        </div>
-        <div style="display:flex; align-items:center; gap:8px; justify-content:flex-end; margin-top:10px;">
-          <a href="https://oddspedia.com" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:6px; text-decoration:none;">
-            <img src="https://widgets.oddspedia.com/img/oddspedia-logo.svg" alt="Oddspedia" style="height:20px; display:block;">
-            <span style="font-family:'IBM Plex Sans',sans-serif; font-size:0.75rem; color:#8b949e; letter-spacing:0.03em;">Powered by Oddspedia</span>
-          </a>
-        </div>
-      </div>
-    </section>
+  <section id="albo-doro">
+    <div class="section-header">
+      <div class="section-icon" style="background: var(--sa-gold)"></div>
+      <h2 class="sa-section-title">Albo d'Oro Storico</h2>
+    </div>
+    <div class="scroll-container">
+      <div class="winner-item"><span class="winner-year">2025/26</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/960px-FC_Internazionale_Milano_2021.svg.png" class="winner-logo" alt="Inter"><span class="winner-name">Inter</span></div>
+      <div class="winner-item"><span class="winner-year">2024/25</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/SSC_Napoli_2025_%28white_and_azure%29.svg/960px-SSC_Napoli_2025_%28white_and_azure%29.svg.png" class="winner-logo" alt="Napoli"><span class="winner-name">Napoli</span></div>
+      <div class="winner-item"><span class="winner-year">2023/24</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/960px-FC_Internazionale_Milano_2021.svg.png" class="winner-logo" alt="Inter"><span class="winner-name">Inter</span></div>
+      <div class="winner-item"><span class="winner-year">2022/23</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/SSC_Napoli_2025_%28white_and_azure%29.svg/960px-SSC_Napoli_2025_%28white_and_azure%29.svg.png" class="winner-logo" alt="Napoli"><span class="winner-name">Napoli</span></div>
+      <div class="winner-item"><span class="winner-year">2021/22</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/960px-Logo_of_AC_Milan.svg.png" class="winner-logo" alt="Milan"><span class="winner-name">Milan</span></div>
+      <div class="winner-item"><span class="winner-year">2020/21</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/960px-FC_Internazionale_Milano_2021.svg.png" class="winner-logo" alt="Inter"><span class="winner-name">Inter</span></div>
+      
+      <div class="winner-item"><span class="winner-year">2019/20</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">2018/19</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">2017/18</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">2016/17</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">2015/16</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">2014/15</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">2013/14</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">2012/13</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">2011/12</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">2010/11</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/960px-Logo_of_AC_Milan.svg.png" class="winner-logo" alt="Milan"><span class="winner-name">Milan</span></div>
+      
+      <div class="winner-item"><span class="winner-year">2009/10</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/960px-FC_Internazionale_Milano_2021.svg.png" class="winner-logo" alt="Inter"><span class="winner-name">Inter</span></div>
+      <div class="winner-item"><span class="winner-year">2008/09</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/960px-FC_Internazionale_Milano_2021.svg.png" class="winner-logo" alt="Inter"><span class="winner-name">Inter</span></div>
+      <div class="winner-item"><span class="winner-year">2007/08</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/960px-FC_Internazionale_Milano_2021.svg.png" class="winner-logo" alt="Inter"><span class="winner-name">Inter</span></div>
+      <div class="winner-item"><span class="winner-year">2006/07</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/960px-FC_Internazionale_Milano_2021.svg.png" class="winner-logo" alt="Inter"><span class="winner-name">Inter</span></div>
+      <div class="winner-item"><span class="winner-year">2005/06</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/960px-FC_Internazionale_Milano_2021.svg.png" class="winner-logo" alt="Inter"><span class="winner-name">Inter</span></div>
+      <div class="winner-item"><span class="winner-year">2004/05</span><img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Red_x.svg" style="filter:invert(1); opacity:0.2" class="winner-logo" alt="None"><span class="winner-name">Revocato</span></div>
+      <div class="winner-item"><span class="winner-year">2003/04</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/960px-Logo_of_AC_Milan.svg.png" class="winner-logo" alt="Milan"><span class="winner-name">Milan</span></div>
+      <div class="winner-item"><span class="winner-year">2002/03</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">2001/02</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">2000/01</span><img src="https://upload.wikimedia.org/wikipedia/it/0/0e/AS_Roma_Logo_2017.svg" class="winner-logo" alt="Roma"><span class="winner-name">Roma</span></div>
+      <div class="winner-item"><span class="winner-year">1999/00</span><img src="https://upload.wikimedia.org/wikipedia/it/6/62/Stemma_della_Societ%C3%A0_Sportiva_Lazio.svg" class="winner-logo" alt="Lazio"><span class="winner-name">Lazio</span></div>
+      
+      <div class="winner-item"><span class="winner-year">1998/99</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/960px-Logo_of_AC_Milan.svg.png" class="winner-logo" alt="Milan"><span class="winner-name">Milan</span></div>
+      <div class="winner-item"><span class="winner-year">1997/98</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1996/97</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1995/96</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/960px-Logo_of_AC_Milan.svg.png" class="winner-logo" alt="Milan"><span class="winner-name">Milan</span></div>
+      <div class="winner-item"><span class="winner-year">1994/95</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1993/94</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/960px-Logo_of_AC_Milan.svg.png" class="winner-logo" alt="Milan"><span class="winner-name">Milan</span></div>
+      <div class="winner-item"><span class="winner-year">1992/93</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/960px-Logo_of_AC_Milan.svg.png" class="winner-logo" alt="Milan"><span class="winner-name">Milan</span></div>
+      <div class="winner-item"><span class="winner-year">1991/92</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/960px-Logo_of_AC_Milan.svg.png" class="winner-logo" alt="Milan"><span class="winner-name">Milan</span></div>
+      <div class="winner-item"><span class="winner-year">1990/91</span><img src="https://upload.wikimedia.org/wikipedia/it/thumb/5/50/Sampdoriastemma.svg/960px-Sampdoriastemma.svg.png" class="winner-logo" alt="Sampdoria"><span class="winner-name">Sampdoria</span></div>
+      <div class="winner-item"><span class="winner-year">1989/90</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/SSC_Napoli_2025_%28white_and_azure%29.svg/960px-SSC_Napoli_2025_%28white_and_azure%29.svg.png" class="winner-logo" alt="Napoli"><span class="winner-name">Napoli</span></div>
+      <div class="winner-item"><span class="winner-year">1988/89</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/960px-FC_Internazionale_Milano_2021.svg.png" class="winner-logo" alt="Inter"><span class="winner-name">Inter</span></div>
+      <div class="winner-item"><span class="winner-year">1987/88</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/960px-Logo_of_AC_Milan.svg.png" class="winner-logo" alt="Milan"><span class="winner-name">Milan</span></div>
+      <div class="winner-item"><span class="winner-year">1986/87</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/SSC_Napoli_2025_%28white_and_azure%29.svg/960px-SSC_Napoli_2025_%28white_and_azure%29.svg.png" class="winner-logo" alt="Napoli"><span class="winner-name">Napoli</span></div>
+      <div class="winner-item"><span class="winner-year">1985/86</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1984/85</span><img src="https://upload.wikimedia.org/wikipedia/it/thumb/9/92/Hellas_Verona_FC_logo_%282020%29.svg/330px-Hellas_Verona_FC_logo_%282020%29.svg.png" class="winner-logo" alt="Verona"><span class="winner-name">Verona</span></div>
+      <div class="winner-item"><span class="winner-year">1983/84</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1982/83</span><img src="https://upload.wikimedia.org/wikipedia/it/0/0e/AS_Roma_Logo_2017.svg" class="winner-logo" alt="Roma"><span class="winner-name">Roma</span></div>
+      <div class="winner-item"><span class="winner-year">1981/82</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1980/81</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1979/80</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/960px-FC_Internazionale_Milano_2021.svg.png" class="winner-logo" alt="Inter"><span class="winner-name">Inter</span></div>
+      <div class="winner-item"><span class="winner-year">1978/79</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/960px-Logo_of_AC_Milan.svg.png" class="winner-logo" alt="Milan"><span class="winner-name">Milan</span></div>
+      <div class="winner-item"><span class="winner-year">1977/78</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1976/77</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1975/76</span><img src="https://upload.wikimedia.org/wikipedia/it/thumb/0/04/Torino_FC_logo.svg/1280px-Torino_FC_logo.svg.png" class="winner-logo" alt="Torino"><span class="winner-name">Torino</span></div>
+      <div class="winner-item"><span class="winner-year">1974/75</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1973/74</span><img src="https://upload.wikimedia.org/wikipedia/it/6/62/Stemma_della_Societ%C3%A0_Sportiva_Lazio.svg" class="winner-logo" alt="Lazio"><span class="winner-name">Lazio</span></div>
+      <div class="winner-item"><span class="winner-year">1972/73</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1971/72</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1970/71</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/960px-FC_Internazionale_Milano_2021.svg.png" class="winner-logo" alt="Inter"><span class="winner-name">Inter</span></div>
+      <div class="winner-item"><span class="winner-year">1969/70</span><img src="https://upload.wikimedia.org/wikipedia/it/thumb/8/88/Cagliari_calcio.svg/330px-Cagliari_calcio.svg.png" class="winner-logo" alt="Cagliari"><span class="winner-name">Cagliari</span></div>
+      <div class="winner-item"><span class="winner-year">1968/69</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/ACF_Fiorentina_-_logo_%28Italy%2C_2022%29.svg/960px-ACF_Fiorentina_-_logo_%28Italy%2C_2022%29.svg.png" class="winner-logo" alt="Fiorentina"><span class="winner-name">Fiorentina</span></div>
+      <div class="winner-item"><span class="winner-year">1967/68</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/960px-Logo_of_AC_Milan.svg.png" class="winner-logo" alt="Milan"><span class="winner-name">Milan</span></div>
+      <div class="winner-item"><span class="winner-year">1966/67</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1965/66</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/960px-FC_Internazionale_Milano_2021.svg.png" class="winner-logo" alt="Inter"><span class="winner-name">Inter</span></div>
+      <div class="winner-item"><span class="winner-year">1964/65</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/960px-FC_Internazionale_Milano_2021.svg.png" class="winner-logo" alt="Inter"><span class="winner-name">Inter</span></div>
+      <div class="winner-item"><span class="winner-year">1963/64</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Bologna_F.C._1909_logo.svg/960px-Bologna_F.C._1909_logo.svg.png" class="winner-logo" alt="Bologna"><span class="winner-name">Bologna</span></div>
+      <div class="winner-item"><span class="winner-year">1962/63</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/960px-FC_Internazionale_Milano_2021.svg.png" class="winner-logo" alt="Inter"><span class="winner-name">Inter</span></div>
+      <div class="winner-item"><span class="winner-year">1961/62</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/960px-Logo_of_AC_Milan.svg.png" class="winner-logo" alt="Milan"><span class="winner-name">Milan</span></div>
+      <div class="winner-item"><span class="winner-year">1960/61</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1959/60</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1958/59</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/960px-Logo_of_AC_Milan.svg.png" class="winner-logo" alt="Milan"><span class="winner-name">Milan</span></div>
+      <div class="winner-item"><span class="winner-year">1957/58</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1956/57</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/960px-Logo_of_AC_Milan.svg.png" class="winner-logo" alt="Milan"><span class="winner-name">Milan</span></div>
+      <div class="winner-item"><span class="winner-year">1955/56</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/ACF_Fiorentina_-_logo_%28Italy%2C_2022%29.svg/960px-ACF_Fiorentina_-_logo_%28Italy%2C_2022%29.svg.png" class="winner-logo" alt="Fiorentina"><span class="winner-name">Fiorentina</span></div>
+      <div class="winner-item"><span class="winner-year">1954/55</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/960px-Logo_of_AC_Milan.svg.png" class="winner-logo" alt="Milan"><span class="winner-name">Milan</span></div>
+      <div class="winner-item"><span class="winner-year">1953/54</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/960px-FC_Internazionale_Milano_2021.svg.png" class="winner-logo" alt="Inter"><span class="winner-name">Inter</span></div>
+      <div class="winner-item"><span class="winner-year">1952/53</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/960px-FC_Internazionale_Milano_2021.svg.png" class="winner-logo" alt="Inter"><span class="winner-name">Inter</span></div>
+      <div class="winner-item"><span class="winner-year">1951/52</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1950/51</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/960px-Logo_of_AC_Milan.svg.png" class="winner-logo" alt="Milan"><span class="winner-name">Milan</span></div>
+      <div class="winner-item"><span class="winner-year">1949/50</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1948/49</span><img src="https://upload.wikimedia.org/wikipedia/it/thumb/0/04/Torino_FC_logo.svg/1280px-Torino_FC_logo.svg.png" class="winner-logo" alt="Torino"><span class="winner-name">Torino</span></div>
+      <div class="winner-item"><span class="winner-year">1947/48</span><img src="https://upload.wikimedia.org/wikipedia/it/thumb/0/04/Torino_FC_logo.svg/1280px-Torino_FC_logo.svg.png" class="winner-logo" alt="Torino"><span class="winner-name">Torino</span></div>
+      <div class="winner-item"><span class="winner-year">1946/47</span><img src="https://upload.wikimedia.org/wikipedia/it/thumb/0/04/Torino_FC_logo.svg/1280px-Torino_FC_logo.svg.png" class="winner-logo" alt="Torino"><span class="winner-name">Torino</span></div>
+      <div class="winner-item"><span class="winner-year">1945/46</span><img src="https://upload.wikimedia.org/wikipedia/it/thumb/0/04/Torino_FC_logo.svg/1280px-Torino_FC_logo.svg.png" class="winner-logo" alt="Torino"><span class="winner-name">Torino</span></div>
+      <div class="winner-item"><span class="winner-year">1942/43</span><img src="https://upload.wikimedia.org/wikipedia/it/thumb/0/04/Torino_FC_logo.svg/1280px-Torino_FC_logo.svg.png" class="winner-logo" alt="Torino"><span class="winner-name">Torino</span></div>
+      <div class="winner-item"><span class="winner-year">1941/42</span><img src="https://upload.wikimedia.org/wikipedia/it/0/0e/AS_Roma_Logo_2017.svg" class="winner-logo" alt="Roma"><span class="winner-name">Roma</span></div>
+      <div class="winner-item"><span class="winner-year">1940/41</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Bologna_F.C._1909_logo.svg/960px-Bologna_F.C._1909_logo.svg.png" class="winner-logo" alt="Bologna"><span class="winner-name">Bologna</span></div>
+      <div class="winner-item"><span class="winner-year">1939/40</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/960px-FC_Internazionale_Milano_2021.svg.png" class="winner-logo" alt="Inter"><span class="winner-name">Inter</span></div>
+      <div class="winner-item"><span class="winner-year">1938/39</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Bologna_F.C._1909_logo.svg/960px-Bologna_F.C._1909_logo.svg.png" class="winner-logo" alt="Bologna"><span class="winner-name">Bologna</span></div>
+      <div class="winner-item"><span class="winner-year">1937/38</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/960px-FC_Internazionale_Milano_2021.svg.png" class="winner-logo" alt="Inter"><span class="winner-name">Inter</span></div>
+      <div class="winner-item"><span class="winner-year">1936/37</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Bologna_F.C._1909_logo.svg/960px-Bologna_F.C._1909_logo.svg.png" class="winner-logo" alt="Bologna"><span class="winner-name">Bologna</span></div>
+      <div class="winner-item"><span class="winner-year">1935/36</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Bologna_F.C._1909_logo.svg/960px-Bologna_F.C._1909_logo.svg.png" class="winner-logo" alt="Bologna"><span class="winner-name">Bologna</span></div>
+      <div class="winner-item"><span class="winner-year">1934/35</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1933/34</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1932/33</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1931/32</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1930/31</span><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" class="winner-logo" alt="Juventus"><span class="winner-name">Juventus</span></div>
+      <div class="winner-item"><span class="winner-year">1929/30</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/960px-FC_Internazionale_Milano_2021.svg.png" class="winner-logo" alt="Inter"><span class="winner-name">Inter</span></div>
+    </div>
+  </section>
+</main>
 
-    <section id="squadre">
-      <div class="section-header">
-        <div class="section-icon green"></div>
-        <span class="sa-section-title">Squadre Serie A</span>
-        <span class="section-badge">20 CLUB</span>
-      </div>
-      <div class="team-grid">
-        <a href="https://www.inter.it" target="_blank" rel="noopener noreferrer" class="team-card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/200px-FC_Internazionale_Milano_2021.svg.png" alt="Inter">
-          <span class="team-name">Inter</span>
-        </a>
-        <a href="https://www.juventus.com" target="_blank" rel="noopener noreferrer" class="team-card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Juventus_FC_-_logo_black_%28Italy%2C_2020%29.svg" alt="Juventus">
-          <span class="team-name">Juventus</span>
-        </a>
-        <a href="https://www.acmilan.com" target="_blank" rel="noopener noreferrer" class="team-card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/200px-Logo_of_AC_Milan.svg.png" alt="Milan">
-          <span class="team-name">Milan</span>
-        </a>
-        <a href="https://www.asroma.com" target="_blank" rel="noopener noreferrer" class="team-card">
-          <img src="https://upload.wikimedia.org/wikipedia/it/0/0e/AS_Roma_Logo_2017.svg" alt="Roma">
-          <span class="team-name">Roma</span>
-        </a>
-        <a href="https://sscnapoli.it" target="_blank" rel="noopener noreferrer" class="team-card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/SSC_Napoli_2024_%28deep_blue_navy%29.svg/200px-SSC_Napoli_2024_%28deep_blue_navy%29.svg.png" alt="Napoli">
-          <span class="team-name">Napoli</span>
-        </a>
-        <a href="https://www.atalanta.it" target="_blank" rel="noopener noreferrer" class="team-card">
-          <img src="https://upload.wikimedia.org/wikipedia/it/thumb/8/81/Logo_Atalanta_Bergamo.svg/960px-Logo_Atalanta_Bergamo.svg.png" alt="Atalanta">
-          <span class="team-name">Atalanta</span>
-        </a>
-        <a href="https://www.sslazio.it" target="_blank" rel="noopener noreferrer" class="team-card">
-          <img src="https://upload.wikimedia.org/wikipedia/it/6/62/Stemma_della_Societ%C3%A0_Sportiva_Lazio.svg" alt="Lazio">
-          <span class="team-name">Lazio</span>
-        </a>
-        <a href="https://www.acffiorentina.com" target="_blank" rel="noopener noreferrer" class="team-card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/ACF_Fiorentina_-_logo_%28Italy%2C_2022%29.svg/2560px-ACF_Fiorentina_-_logo_%28Italy%2C_2022%29.svg.png" alt="Fiorentina">
-          <span class="team-name">Fiorentina</span>
-        </a>
-        <a href="https://www.bolognafc.it" target="_blank" rel="noopener noreferrer" class="team-card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Bologna_F.C._1909_logo.svg/960px-Bologna_F.C._1909_logo.svg.png" alt="Bologna">
-          <span class="team-name">Bologna</span>
-        </a>
-        <a href="https://www.torinofc.it" target="_blank" rel="noopener noreferrer" class="team-card">
-          <img src="https://upload.wikimedia.org/wikipedia/it/thumb/0/04/Torino_FC_logo.svg/1280px-Torino_FC_logo.svg.png" alt="Torino">
-          <span class="team-name">Torino</span>
-        </a>
-        <a href="https://www.sassuolocalcio.it" target="_blank" rel="noopener noreferrer" class="team-card">
-          <img src="https://upload.wikimedia.org/wikipedia/it/thumb/a/a4/Ussassuolostemma.svg/1280px-Ussassuolostemma.svg.png" alt="Sassuolo">
-          <span class="team-name">Sassuolo</span>
-        </a>
-        <a href="https://comofootball.com" target="_blank" rel="noopener noreferrer" class="team-card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Calcio_Como_-_logo_%28Italy%2C_2019-%29.svg/330px-Calcio_Como_-_logo_%28Italy%2C_2019-%29.svg.png" alt="Como">
-          <span class="team-name">Como</span>
-        </a>
-        <a href="https://pisasportingclub.com" target="_blank" rel="noopener noreferrer" class="team-card">
-          <img src="https://upload.wikimedia.org/wikipedia/it/thumb/d/d7/Logo_Pisa_SC_2017.svg/330px-Logo_Pisa_SC_2017.svg.png" alt="Pisa">
-          <span class="team-name">Pisa</span>
-        </a>
-        <a href="https://www.uslecce.it" target="_blank" rel="noopener noreferrer" class="team-card">
-          <img src="https://upload.wikimedia.org/wikipedia/it/thumb/3/36/US_Lecce_Stemma.svg/330px-US_Lecce_Stemma.svg.png" alt="Lecce">
-          <span class="team-name">Lecce</span>
-        </a>
-        <a href="https://genoacfc.it" target="_blank" rel="noopener noreferrer" class="team-card">
-          <img src="https://upload.wikimedia.org/wikipedia/it/thumb/9/99/Genoa_Cricket_and_Football_Club_logo.svg/330px-Genoa_Cricket_and_Football_Club_logo.svg.png" alt="Genoa">
-          <span class="team-name">Genoa</span>
-        </a>
-        <a href="https://parmacalcio1913.com" target="_blank" rel="noopener noreferrer" class="team-card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Logo_Parma_Calcio_1913_%28adozione_2016%29.svg/330px-Logo_Parma_Calcio_1913_%28adozione_2016%29.svg.png" alt="Parma">
-          <span class="team-name">Parma</span>
-        </a>
-        <a href="https://uscremonese.it" target="_blank" rel="noopener noreferrer" class="team-card">
-          <img src="https://upload.wikimedia.org/wikipedia/it/thumb/2/23/Unione_Sportiva_Cremonese_logo.svg/2560px-Unione_Sportiva_Cremonese_logo.svg.png" alt="Cremonese">
-          <span class="team-name">Cremonese</span>
-        </a>
-        <a href="https://www.hellasverona.it" target="_blank" rel="noopener noreferrer" class="team-card">
-          <img src="https://upload.wikimedia.org/wikipedia/it/thumb/9/92/Hellas_Verona_FC_logo_%282020%29.svg/330px-Hellas_Verona_FC_logo_%282020%29.svg.png" alt="Verona">
-          <span class="team-name">Verona</span>
-        </a>
-        <a href="https://cagliaricalcio.com" target="_blank" rel="noopener noreferrer" class="team-card">
-          <img src="https://upload.wikimedia.org/wikipedia/it/thumb/8/88/Cagliari_calcio.svg/330px-Cagliari_calcio.svg.png" alt="Cagliari">
-          <span class="team-name">Cagliari</span>
-        </a>
-        <a href="https://www.udinese.it/" target="_blank" rel="noopener noreferrer" class="team-card">
-          <img src="https://upload.wikimedia.org/wikipedia/it/thumb/a/ae/Logo_Udinese_Calcio_2010.svg/330px-Logo_Udinese_Calcio_2010.svg.png" alt="Udinese">
-          <span class="team-name">Udinese</span>
-        </a>
-      </div>
-    </section>
+<footer>
+  <p>&copy; 2026 Serie A Enilive – Portale non ufficiale a scopo informativo</p>
+  <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.6;">Tutti i loghi appartengono ai rispettivi proprietari. Dati forniti tramite Oddspedia API.</p>
+</footer>
 
-  </main>
+<script>
+  // Script per la navigazione attiva durante lo scroll
+  const navLinks = document.querySelectorAll('.nav-link');
+  const sections = document.querySelectorAll('section');
 
-  <footer>
-    <span>Serie A – Risultati e Classifica Live &nbsp;·&nbsp; Dati forniti da </span>
-    <a href="https://oddspedia.com" target="_blank" rel="noopener noreferrer">Oddspedia</a>
-    <span> &nbsp;·&nbsp; Stagione 2025/26</span>
-  </footer>
+  function updateActiveNav() {
+    let current = "";
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (pageYOffset >= sectionTop - 150) {
+        current = section.getAttribute("id");
+      }
+    });
 
-  <script>
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('section');
+    navLinks.forEach((link) => {
+      link.classList.remove("active");
+      if (link.getAttribute("href").includes(current)) {
+        link.classList.add("active");
+      }
+    });
+  }
 
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        if (pageYOffset >= sectionTop - 100) {
-          current = section.getAttribute('id');
-        }
-      });
-
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').slice(1) === current) {
-          link.classList.add('active');
-        }
+  window.addEventListener("scroll", updateActiveNav);
+  
+  // Smooth scroll per i link della nav
+  navLinks.forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
       });
     });
-  </script>
+  });
+</script>
 
 </body>
 </html>
